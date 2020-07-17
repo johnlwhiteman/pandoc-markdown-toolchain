@@ -1,12 +1,10 @@
-# markdown-pandoc-toolchain  (v0.0.1)
+# pandoc-markdown-toolchain
 
-A ready-to-run Docker image that provides a collection of tools for those who write in markdown and use pandoc to convert to other formats.
+A ready-to-run Docker environment that provides a collection of tools and other goodies for those who like to write in markdown and use pandoc to convert to other formats.
 
-* asymptote (asy) (2.47)
 * blockdiag (2.0.1)
 * ditaa (0.9)
 * figlet (2.2.5)
-* graphviz (2.40.1-6)
 * kindlegen (2.9)
 * matplotlib (3.2.2)
 * matplotlib-venn (0.11.5)
@@ -18,40 +16,66 @@ A ready-to-run Docker image that provides a collection of tools for those who wr
 * pandoc (2.10)
 * pandoc-citeproc (0.17.0.1)
 * pandoc-crossref (0.3.7.0)
-* pandoc-imagine (0.1.6)
+* pandoc-imagine (0.1.6) (some sub-filters supported)
 * pandoc-run-filter (0.0.1)
 * pillow (7.2.0)
 * plantuml (1.2018.13)
 * pygal (2.0.0)
 * seqdiag (2.0.0)
-* texlive ()
+
+## Install
+
+```bash
+$ https://github.com/johnlwhiteman/markdown-pandoc-toolchain.git
+$ cd ./markdown-pandoc-toolchain
+$ ./bin/go
+# Note: This may take a while ... go learn a new language.
+```
+
+## Some Commands
+
+### Build Image
+```bash
+$ ./bin/build
+```
+
+### Run Container
+```bash
+$ ./bin/run
+```
+
+### Interactive Shell Mode
+```bash
+$ ./bin/exec
+```
+
+### Stop Container
+```bash
+$ ./bin/stop
+```
+
+### Start Container
+```bash
+$ ./bin/start
+```
+
+### Show Statues
+```bash
+$ ./bin/show
+```
+
+### Remove All
+```bash
+$ ./bin/clean
+# Note: Content under ./projects preserved
+```
 
 ## Requirements
 
-* Docker installed on your host system.
+* Docker installed on your host system. [[link](https://docs.docker.com/get-docker/)]
   * Windows 10 build >= 2004 and WSL 2 activated [[link](https://docs.docker.com/docker-for-windows/wsl/)]
   * Linux - anything should work
-* 1.5 G disk space (yes quite big, but so are your dreams)
+*  Docker Compose [[link](https://docs.docker.com/compose/install/)]
+* 2.0GB disk space (yes quite big, but so are your dreams)
 * Optional: Visual Studio Code on host system. [[link](https://code.visualstudio.com/download)]
-
-## Build Image
-```bash
-$ docker build -t pandoc-run-env .
-$ docker image ls
-```
-
-## Run Container
-```bash
-$ docker container
-```
-
-## Interactive Shell Mode
-```bash
-$ docker exec -it pandoc-run-env bash
-```
-
-## Remove
-```bash
-$ docker rm --force pandoc-run-env
-```
 

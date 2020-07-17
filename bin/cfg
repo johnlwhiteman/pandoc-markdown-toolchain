@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export NAME=pandoc-markdown-toolchain
+export SERVICE=app

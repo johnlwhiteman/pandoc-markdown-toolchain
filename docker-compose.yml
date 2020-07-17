@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+ app:
+    build: .
+    image: pandoc-markdown-toolchain
+    container_name: pandoc-markdown-toolchain
+    volumes:
+      - ./projects:/projects
+
