@@ -2,73 +2,103 @@
 
 A ready-to-run Docker environment that provides a collection of tools and other goodies for those who like to write in markdown and use pandoc to convert to other formats.
 
-* blockdiag (2.0.1)
-* ditaa (0.9)
-* figlet (2.2.5)
-* kindlegen (2.9)
-* matplotlib (3.2.2)
-* matplotlib-venn (0.11.5)
-* mermaid.cli (mmdc) (0.5.1)
-* mscgen (0.20)
-* nodejs (10.21.0)
-* numpy (1.19.0)
-* nwdiag (2.0.0)
-* pandoc (2.10)
-* pandoc-citeproc (0.17.0.1)
-* pandoc-crossref (0.3.7.0)
-* pandoc-imagine (0.1.6) (some sub-filters supported)
-* pandoc-run-filter (0.0.1)
-* pillow (7.2.0)
-* plantuml (1.2018.13)
-* pygal (2.0.0)
-* seqdiag (2.0.0)
-* texlive ()
+## Features
+
+* blockdiag
+* ditaa
+* figlet
+* kindlegen
+* [latex](./projects/fakebook/chapters/latex.md)
+* [markdown](./projects/fakebook/chapters/markdown.md)
+* matplotlib
+* matplotlib-venn
+* mermaid
+* mscgen
+* nodejs
+* numpy
+* nwdiag
+* pandoc
+* pandoc-citeproc
+* pandoc-crossref
+* pandoc-imagine (most sub-filters supported)
+* pandoc-run-filter
+* pillow
+* plantuml
+* pygal
+* seqdiag
+* texlive
 
 ## Install
 
 ```bash
 $ https://github.com/johnlwhiteman/markdown-pandoc-toolchain.git
 $ cd ./markdown-pandoc-toolchain
+# Linux
 $ ./bin/go
-# Note: This may take a while ... go learn a new language.
+# Windows
+$ .\bin\go.cmd
+
+# Note: This may take a while ... go learn a new language or something.
 ```
 
-## Some Commands
+## Some Useful Commands
 
 ### Build Image
 ```bash
+# Linux
 $ ./bin/build
+# Windows
+$ .\bin\build.cmd
 ```
 
 ### Run Container
 ```bash
+# Linux
 $ ./bin/run
+# Windows
+$ .\bin\run.cmd
 ```
 
 ### Interactive Shell Mode
 ```bash
+# Linux
 $ ./bin/exec
+# Windows
+$ .\bin\exec.cmd
 ```
 
 ### Stop Container
 ```bash
+# Linux
 $ ./bin/stop
+# Windows
+$ .\bin\stop.cmd
 ```
 
 ### Start Container
 ```bash
+# Linux
 $ ./bin/start
+# Windows
+$ .\bin\start.cmd
 ```
 
 ### Show Statues
 ```bash
+# Linux
 $ ./bin/show
+# Windows
+$ .\bin\show.cmd
 ```
 
 ### Remove All
 ```bash
+# Linux
 $ ./bin/clean
-# Note: Content under ./projects preserved
+# Windows
+$ .\bin\clean.cmd
+
+# Note: All content under ./projects is preserved
 ```
 
 ## Requirements
@@ -77,6 +107,6 @@ $ ./bin/clean
   * Windows 10 build >= 2004 and WSL 2 activated [[link](https://docs.docker.com/docker-for-windows/wsl/)]
   * Linux - anything should work
 *  Docker Compose [[link](https://docs.docker.com/compose/install/)]
-* 2.0GB disk space (yes quite big, but so are your dreams)
+* ~2.5GB disk space (yes quite big, but so are your dreams)
 * Optional: Visual Studio Code on host system. [[link](https://code.visualstudio.com/download)]
 

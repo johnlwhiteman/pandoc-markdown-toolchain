@@ -23,3 +23,5 @@ Input:
 Output:
 
 $\sum_{k=1}^{n} \alpha_k$
+
+

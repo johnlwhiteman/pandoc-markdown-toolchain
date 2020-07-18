@@ -7,19 +7,19 @@ ENV DEBIAN=https://dl.yarnpkg.com/debian/
 ENV KINDLEGEN=http://www.amazon.com/gp/redirect.html/ref=amb_link_6?location=http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz&token=536D040605DC9B19419F3E7C28396577B326A45A&source=standards&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-7&pf_rd_r=2GK0TQH3KFWWE4ESFDC5&pf_rd_r=2GK0TQH3KFWWE4ESFDC5&pf_rd_t=1401&pf_rd_p=51e198fa-b346-4ea1-ab56-68aefc1abc58&pf_rd_p=51e198fa-b346-4ea1-ab56-68aefc1abc58&pf_rd_i=1000765211
 ENV YARN=https://dl.yarnpkg.com/debian/pubkey.gpg
 
-# Don't change these
+# Set languages
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-ENV HOME_DIR=/projects
-WORKDIR ${HOME_DIR}
+
+ARG USER=me
+WORKDIR /home/${USER}
 COPY ./assets/vimrc ./.vimrc
 RUN mkdir -p /usr/share/man/man1 && \
-
     # Dependencies
     apt-get update && \
     apt-get install -y --no-install-recommends \
-    gnupg2 \
     apt-utils \
+    gnupg2 \
     curl \
     git \
     librsvg2-2 \
@@ -35,7 +35,6 @@ RUN mkdir -p /usr/share/man/man1 && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
     yarn && \
-
     # Pandoc
     curl -sL -o pandoc.deb ${PANDOC} && \
     dpkg -i pandoc.deb && rm -f pandoc.deb && \
@@ -43,13 +42,11 @@ RUN mkdir -p /usr/share/man/man1 && \
     tar -xvf pandoc-crossref.tgz && \
     mv ./pandoc-crossref /usr/bin/pandoc-crossref && rm -fr pandoc-crossref* && \
     pandoc --version && pandoc-crossref --version && \
-
     # Kindle
     mkdir -p /tmp/tmp && cd /tmp/tmp && \
     curl -sL -o kindlegen.tgz ${KINDLEGEN} && tar -xvf kindlegen.tgz && \
     mv ./kindlegen /usr/bin/kindlegen && cd /tmp && rm -fr /tmp/tmp && \
-
-    # Features
+    # Application Features
     yarn global add mermaid.cli mermaid-filter && yarn cache clean && \
     apt-get install -y --no-install-recommends \
     ditaa \
@@ -61,8 +58,7 @@ RUN mkdir -p /usr/share/man/man1 && \
     echo '#!/usr/bin/env bash' > /usr/bin/ditaa && \
     echo 'java -jar /usr/bin/ditaa.jar' >> /usr/bin/ditaa && \
     chmod +x /usr/bin/ditaa && \
-
-    # Python
+    # Python Features
     python -m pip install --no-cache-dir \
     blockdiag \
     matplotlib \
@@ -74,5 +70,11 @@ RUN mkdir -p /usr/share/man/man1 && \
     pillow \
     pygal \
     seqdiag
+
+# Set default user
+ARG UID=1000
+ARG GID=1000
+RUN useradd -m ${USER} --uid=${UID}
+USER ${UID}:${GID}
 
 ENTRYPOINT ["/bin/bash"]

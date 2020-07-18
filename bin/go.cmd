@@ -1,0 +1,9 @@
+@echo off
+set DIR=%~dp0
+call %DIR%cfg.cmd
+call %DIR%stop.cmd
+call %DIR%clean.cmd
+call %DIR%build.cmd
+call %DIR%run.cmd
+call %DIR%start.cmd
+call %DIR%exec.cmd
