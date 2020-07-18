@@ -8,7 +8,7 @@ Everyone should learn to write and wear latex.
 
 Input:
 
-\$a^2 + b^2 = c^2\$
+```$a^2 + b^2 = c^2$```
 
 Output:
 
@@ -18,7 +18,7 @@ $a^2 + b^2 = c^2$
 
 Input:
 
-\$\sum_{k=1}^{n} \alpha_k\$
+```$\sum_{k=1}^{n} \alpha_k$```
 
 Output:
 

@@ -22,6 +22,7 @@ A ready-to-run Docker environment that provides a collection of tools and other 
 * plantuml (1.2018.13)
 * pygal (2.0.0)
 * seqdiag (2.0.0)
+* texlive ()
 
 ## Install
 
