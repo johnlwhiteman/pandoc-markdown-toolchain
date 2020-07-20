@@ -2,12 +2,26 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 source ${DIR}/cfg
 
-echo
+function showAll() {
+    echo All
+    echo "IMAGES"
+    docker image ls -a
+    echo
+    echo "CONTAINERS"
+    docker container ls -a
+}
 
-echo "IMAGES"
-docker image ls -a | grep ${NAME}
+function showApp() {
+    echo App
+    echo "IMAGES"
+    docker image ls -a | grep ${NAME}
+    echo
+    echo "CONTAINERS"
+    docker container ls -a | grep ${NAME}
+}
 
-echo
-
-echo "CONTAINERS"
-docker container ls -a | grep ${NAME}
+if [[ 0 -eq $# ]]; then
+    showApp
+else
+    showAll
+fi

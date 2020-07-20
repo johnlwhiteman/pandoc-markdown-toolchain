@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 source ${DIR}/cfg
-r=$(docker container ls  | grep ${NAME} | awk '{print $1}')
-if [ ! -z "${r}" ]; then
-    echo "Stopping container(s) ${r}"
-    docker stop ${r} && \
-    docker container ls | grep ${NAME}
+
+r=$(${DIR}/containers)
+if [[ "${r}" != "N/A" ]]; then
+    echo "Stopping container ${r}"
+    docker stop ${r} && ${DIR}/containers
 fi

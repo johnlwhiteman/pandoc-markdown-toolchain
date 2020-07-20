@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-docker system -y prune -a
-docker rm -f $(docker ps -a -q)
-docker rmi -f $(docker images -a -q)

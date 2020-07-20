@@ -12,7 +12,7 @@ A ready-to-run Docker environment that provides a collection of tools and other 
 * [markdown](./projects/fakebook/chapters/markdown.md)
 * matplotlib
 * matplotlib-venn
-* mermaid
+* [mermaid](./projects/fakebook/chapters/markdown.md)
 * mscgen
 * nodejs
 * numpy
@@ -39,6 +39,11 @@ $ ./bin/go
 $ .\bin\go.cmd
 
 # Note: This may take a while ... go learn a new language or something.
+```
+
+## Test (In Container)
+```bash
+$ pytest /home/tests/tests.py
 ```
 
 ## Some Useful Commands
@@ -102,11 +107,10 @@ $ .\bin\clean.cmd
 ```
 
 ## Requirements
-
-* Docker installed on your host system. [[link](https://docs.docker.com/get-docker/)]
-  * Windows 10 build >= 2004 and WSL 2 activated [[link](https://docs.docker.com/docker-for-windows/wsl/)]
-  * Linux - anything should work
-*  Docker Compose [[link](https://docs.docker.com/compose/install/)]
+* Install git so you can clone the project [[link](https://git-scm.com/downloads)]
+* Install Docker: [[link](https://docs.docker.com/get-docker/)]
+* Install Docker Compose: [[link](https://docs.docker.com/compose/install/)]
+* Install python >= v3.8 [[link](https://www.python.org/downloads/)]
 * ~2.5GB disk space (yes quite big, but so are your dreams)
 * Optional: Visual Studio Code on host system. [[link](https://code.visualstudio.com/download)]
 

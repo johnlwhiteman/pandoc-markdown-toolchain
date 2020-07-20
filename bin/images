@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
+source ${DIR}/cfg
+
+function showAll() {
+    r=$(docker image ls -qa)
+    if [ ! -z "${r}" ]; then
+        docker image ls -qa
+    else
+        echo 'N/A'
+    fi
+}
+
+function showApp() {
+    r=$(docker image ls -a | grep ${NAME})
+    if [ ! -z "${r}" ]; then
+        docker image ls -a | grep ${NAME} | awk '{print $3}'
+    else
+        echo 'N/A'
+    fi
+}
+
+if [[ 0 -eq $# ]]; then
+    showApp
+else
+    showAll
+fi

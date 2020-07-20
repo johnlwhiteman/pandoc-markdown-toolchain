@@ -12,10 +12,17 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
 ARG USER=me
-WORKDIR /home/${USER}
-COPY ./assets/vimrc ./.vimrc
-RUN mkdir -p /usr/share/man/man1 && \
-    # Dependencies
+ARG HOMEDIR=/home/${USER}
+ARG TESTSDIR=${HOMEDIR}/tests
+
+COPY ./tests/* /tmp/tests/
+COPY ./assets/bashrc /tmp/.bashrc
+COPY ./assets/vimrc /tmp/.vimrc
+WORKDIR /tmp
+
+RUN mkdir -p /usr/share/man/man1 ${TESTSDIR} && \
+    echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    # Install Dependencies
     apt-get update && \
     apt-get install -y --no-install-recommends \
     apt-utils \
@@ -27,6 +34,7 @@ RUN mkdir -p /usr/share/man/man1 && \
     make \
     nodejs \
     software-properties-common \
+    sudo \
     texlive \
     vim \
     xz-utils && \
@@ -35,18 +43,18 @@ RUN mkdir -p /usr/share/man/man1 && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
     yarn && \
-    # Pandoc
+    # Install Pandoc
     curl -sL -o pandoc.deb ${PANDOC} && \
     dpkg -i pandoc.deb && rm -f pandoc.deb && \
     curl -sL -o pandoc-crossref.tgz ${PANDOCC} && \
     tar -xvf pandoc-crossref.tgz && \
     mv ./pandoc-crossref /usr/bin/pandoc-crossref && rm -fr pandoc-crossref* && \
     pandoc --version && pandoc-crossref --version && \
-    # Kindle
+    # Install Kindle
     mkdir -p /tmp/tmp && cd /tmp/tmp && \
     curl -sL -o kindlegen.tgz ${KINDLEGEN} && tar -xvf kindlegen.tgz && \
     mv ./kindlegen /usr/bin/kindlegen && cd /tmp && rm -fr /tmp/tmp && \
-    # Application Features
+    # Install Application Features
     yarn global add mermaid.cli mermaid-filter && yarn cache clean && \
     apt-get install -y --no-install-recommends \
     ditaa \
@@ -58,7 +66,7 @@ RUN mkdir -p /usr/share/man/man1 && \
     echo '#!/usr/bin/env bash' > /usr/bin/ditaa && \
     echo 'java -jar /usr/bin/ditaa.jar' >> /usr/bin/ditaa && \
     chmod +x /usr/bin/ditaa && \
-    # Python Features
+    # Install Python Features
     python -m pip install --no-cache-dir \
     blockdiag \
     matplotlib \
@@ -69,12 +77,15 @@ RUN mkdir -p /usr/share/man/man1 && \
     pandoc-run-filter \
     pillow \
     pygal \
-    seqdiag
+    pytest \
+    seqdiag && \
+    rm -fr /tmp/
 
-# Set default user
+# Setup default user
 ARG UID=1000
 ARG GID=1000
-RUN useradd -m ${USER} --uid=${UID}
+RUN useradd -m ${USER} --uid=${UID} && \
+    echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER ${UID}:${GID}
-
+WORKDIR ${HOMEDIR}
 ENTRYPOINT ["/bin/bash"]

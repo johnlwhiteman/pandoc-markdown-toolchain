@@ -2,14 +2,36 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 source ${DIR}/cfg
 
-r=$(docker container ls -a -q | grep ${NAME})
-if [ ! -z "${r}" ]; then
-    echo "Removing container(s) ${r}"
-    docker rm -f ${r}
-fi
+function cleanAll() {
+    r=$(${DIR}/containers all)
+    if [[ "${r}" != "N/A" ]]; then
+        echo "Removing ALL containers ${r}"
+        docker rm -f $(docker ps -qa)
+    fi
+    r=$(${DIR}/images all)
+    if [[ "${r}" != "N/A" ]]; then
+        echo "Removing ALL images ${r}"
+        docker rmi -f $(docker images -qa)
+    fi
+}
 
-r=$(docker image ls -a -q  | grep ${NAME})
-if [ ! -z "${r}" ]; then
-    echo "Removing image(s) ${r}"
-    docker rmi -f ${r}
+function cleanApp() {
+    r=$(${DIR}/containers)
+    if [[ "${r}" != "N/A" ]]; then
+        echo "Removing containers${r}"
+        docker rm -f ${r}
+    fi
+    r=$(${DIR}/images)
+    if [[ "${r}" != "N/A" ]]; then
+        echo "Removing images ${r}"
+        docker rmi -f ${r}
+    fi
+}
+
+if [[ 0 -eq $# ]]; then
+    cleanApp
+else
+    if [[ 3 -eq $# ]]; then
+        cleanAll
+    fi
 fi

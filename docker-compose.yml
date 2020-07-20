@@ -6,3 +6,5 @@ services:
     container_name: pandoc-markdown-toolchain
     volumes:
       - ./projects:/home/me
+volumes:
+  db-data:
