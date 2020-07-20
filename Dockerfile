@@ -15,9 +15,6 @@ ARG USER=me
 ARG HOMEDIR=/home/${USER}
 ARG TESTSDIR=${HOMEDIR}/tests
 
-COPY ./tests/* /tmp/tests/
-COPY ./assets/bashrc /tmp/.bashrc
-COPY ./assets/vimrc /tmp/.vimrc
 WORKDIR /tmp
 
 RUN mkdir -p /usr/share/man/man1 ${TESTSDIR} && \
@@ -86,6 +83,10 @@ ARG UID=1000
 ARG GID=1000
 RUN useradd -m ${USER} --uid=${UID} && \
     echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+COPY ./assets/* ${HOMEDIR}/
+COPY ./tests/* ${HOMEDIR}/tests
+RUN chmod +x ${HOMEDIR}/.bashrc && \
+    chown -R ${USER}:${USER} ${HOMEDIR} ${TESTSDIR}
 USER ${UID}:${GID}
-WORKDIR ${HOMEDIR}
+WORKDIR ${HOMEDIR}/workspace
 ENTRYPOINT ["/bin/bash"]

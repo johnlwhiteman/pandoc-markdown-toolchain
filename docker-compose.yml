@@ -5,6 +5,4 @@ services:
     image: pandoc-markdown-toolchain
     container_name: pandoc-markdown-toolchain
     volumes:
-      - ./projects:/home/me
-volumes:
-  db-data:
+      - ./workspace:/home/me/workspace

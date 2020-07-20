@@ -8,11 +8,11 @@ A ready-to-run Docker environment that provides a collection of tools and other 
 * ditaa
 * figlet
 * kindlegen
-* [latex](./projects/fakebook/chapters/latex.md)
-* [markdown](./projects/fakebook/chapters/markdown.md)
+* latex
+* markdown
 * matplotlib
 * matplotlib-venn
-* [mermaid](./projects/fakebook/chapters/markdown.md)
+* mermaid
 * mscgen
 * nodejs
 * numpy
