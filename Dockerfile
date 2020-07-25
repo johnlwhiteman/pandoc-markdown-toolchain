@@ -5,7 +5,6 @@ ENV PANDOC=https://github.com/jgm/pandoc/releases/download/2.10/pandoc-2.10-1-am
 ENV PANDOCC=https://github.com/lierdakil/pandoc-crossref/releases/download/v0.3.7.0/pandoc-crossref-Linux-2.10.tar.xz
 ENV DEBIAN=https://dl.yarnpkg.com/debian/
 ENV KINDLEGEN=http://www.amazon.com/gp/redirect.html/ref=amb_link_6?location=http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz&token=536D040605DC9B19419F3E7C28396577B326A45A&source=standards&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-7&pf_rd_r=2GK0TQH3KFWWE4ESFDC5&pf_rd_r=2GK0TQH3KFWWE4ESFDC5&pf_rd_t=1401&pf_rd_p=51e198fa-b346-4ea1-ab56-68aefc1abc58&pf_rd_p=51e198fa-b346-4ea1-ab56-68aefc1abc58&pf_rd_i=1000765211
-ENV YARN=https://dl.yarnpkg.com/debian/pubkey.gpg
 
 # Set languages
 ENV LC_ALL=C.UTF-8
@@ -29,17 +28,12 @@ RUN mkdir -p /usr/share/man/man1 ${TESTSDIR} && \
     librsvg2-2 \
     lmodern \
     make \
-    nodejs \
     software-properties-common \
     sudo \
     texlive \
     vim \
     xz-utils && \
-    curl -sS ${YARN} | apt-key add - && \
-    echo "deb ${DEBIAN} stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-    yarn && \
+    apt-get install -y --no-install-recommends && \
     # Install Pandoc
     curl -sL -o pandoc.deb ${PANDOC} && \
     dpkg -i pandoc.deb && rm -f pandoc.deb && \
@@ -52,7 +46,6 @@ RUN mkdir -p /usr/share/man/man1 ${TESTSDIR} && \
     curl -sL -o kindlegen.tgz ${KINDLEGEN} && tar -xvf kindlegen.tgz && \
     mv ./kindlegen /usr/bin/kindlegen && cd /tmp && rm -fr /tmp/tmp && \
     # Install Application Features
-    yarn global add mermaid.cli mermaid-filter && yarn cache clean && \
     apt-get install -y --no-install-recommends \
     ditaa \
     figlet \
@@ -70,13 +63,15 @@ RUN mkdir -p /usr/share/man/man1 ${TESTSDIR} && \
     matplotlib-venn \
     nwdiag \
     numpy \
+    pandocfilters \
     pandoc-imagine \
     pandoc-run-filter \
     pillow \
     pygal \
     pytest \
-    seqdiag && \
-    rm -fr /tmp/
+    seqdiag \
+    six && \
+    rm -fr /tmp/* && chmod 777 /tmp
 
 # Setup default user
 ARG UID=1000

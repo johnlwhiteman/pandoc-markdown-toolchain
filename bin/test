@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
-${DIR}/stop
-${DIR}/clean
-${DIR}/build
-${DIR}/run
-${DIR}/start
-${DIR}/test
-${DIR}/enter
+source ${DIR}/cfg
+docker exec -it ${NAME} bash -c "pytest ../tests/tests.py"

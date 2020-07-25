@@ -6,4 +6,5 @@ call %DIR%clean.cmd
 call %DIR%build.cmd
 call %DIR%run.cmd
 call %DIR%start.cmd
-call %DIR%exec.cmd
+call %DIR%test.cmd
+call %DIR%enter.cmd
